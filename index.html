@@ -1,0 +1,173 @@
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sertifikat</title>
+    <style>
+        body{
+            font-family: sans-serif;
+            padding: 0;
+            margin: 0;
+        }
+        .header{
+            display: flex;
+            height: 60px;
+            justify-content: center;
+            background-color: #2b7481;
+            color: #ffffff;
+            font-weight: bold;
+            align-items: center;
+        }
+
+        .footer, .footer a{
+            display: flex;
+            height: 60px;
+            justify-content: center;
+            background-color: #2b7481;
+            color: #ffffff;
+            align-items: center;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+        }
+
+        .kanvas {
+            margin-top: 3rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        canvas {
+            width: 95%;
+
+        }
+
+        .opsi {
+            display: flex;
+        }
+
+        .input {
+            flex-direction: column;
+            display: flex;
+            flex: 1;
+            margin-top: 2rem;
+            padding-left: 3em;
+            padding-right: 3em;
+            padding-bottom: 3em;
+        }
+
+        input,
+        select,
+        button {
+            height: 3em;
+            border: solid 1px #2b7481;
+            border-radius: 0.3em;
+            padding-left: 0.5em;
+            padding-right: 0.5em;
+            width: 100%;
+        }
+
+        #proses, button{
+            background-color: #2b7481;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        #proses:hover, button:hover {
+            background-color: #4295a3;
+        }
+
+        button:disabled {
+            background-color: #d8e3e6;
+            border-color: #d3d3d3;
+        }
+
+        @media (max-width: 720px) {
+            .opsi {
+                flex-direction: column;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        SERTIFIKAT
+    </div>
+    <div class="container">
+        <img id="background-img" style="display: none;" src="bg.png" />
+        <div class="kanvas">
+            <canvas id="kanvas" width="240" height="297" style="border: 1px solid #d3d3d3;">
+                Perbaruiki dulu browserta' atau kalau bisa Google Chrome ta pake.
+            </canvas>
+        </div>
+        <div class="opsi">
+            <div class="input">
+            <span></span>  
+            <form>
+                <input type="text" id="nama-peserta" placeholder="Nama Peserta mis: Kasrianti Nur Adillah" required>
+                </p>
+                <select id="kategori" >
+                    <option value="prestasi">Prestasi</option>
+                    <option value="partisipasi">Partisipasi</option>
+                </select>
+                </p>
+                <input type="text" id="prestasi-peserta"  placeholder="Prestasi/Partisipasi mis: 'JUARA I'"  required>
+                </p>
+                <input type="text" id="waktu-kegiatan"  placeholder="Waktu Kegiatan mis: '17 Agustus 2020'" required>
+                </p>
+                <input type="button" id="proses" value="Proses">
+            </form>
+            </div>
+            <div class="input">
+                <a href="" id="download" download=""><button disabled>Download</button></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        Made with ❤︎ by&nbsp;<a href='https://www.facebook.com/ismail.xvii' target="_blank">@ismail.xvii</a> 
+    </div>
+    <script>
+        var kanvas = document.getElementById("kanvas");
+        var kanvasText = kanvas.getContext("2d");
+        var backgroundImg = document.getElementById("background-img");
+        const namaPeserta = document.getElementById('nama-peserta');
+        const prestasiPeserta = document.getElementById('prestasi-peserta');
+        const waktuKegiatan = document.getElementById('waktu-kegiatan');
+
+        function loadBackgorund() {
+            kanvas.width = backgroundImg.width;
+            kanvas.height = backgroundImg.height;
+            kanvasText.drawImage(backgroundImg, 0, 0);
+            kanvasText.textAlign = "center";
+        };
+        window.addEventListener('load', (event) => {
+            loadBackgorund();
+        });
+
+        document.getElementById('proses').addEventListener('click', function () {
+            loadBackgorund();
+            kanvasText.font = "normal bold 36px arial";
+            kanvasText.fillText(namaPeserta.value, 670, 425);
+            kanvasText.font = "normal 16px arial";
+            kanvasText.fillText('atas '+document.getElementById('kategori').value+'nya sebagai', 670, 458);
+            kanvasText.fillStyle = '#E73467'
+            kanvasText.font = "normal bold 38px arial";
+            kanvasText.fillText(prestasiPeserta.value, 670, 498);
+            kanvasText.fillStyle = '#000'
+            kanvasText.font = "normal bold 20px arial";
+            kanvasText.fillText(waktuKegiatan.value, 670, 600);
+            document.getElementById('download').setAttribute('href', kanvasText.canvas.toDataURL())
+            document.getElementById('download').setAttribute('download', namaPeserta.value)
+            document.querySelector('#download button').disabled = false;
+        }, false);
+
+    </script>
+</body>
+
+</html>
